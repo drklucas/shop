@@ -12,6 +12,7 @@ class AppDrawer extends StatelessWidget {
            children: [
              AppBar(
                title: Text('Bem Vindo Usuário!'),
+               automaticallyImplyLeading: false,
              ),
              Divider(),
              ListTile(
@@ -20,7 +21,7 @@ class AppDrawer extends StatelessWidget {
                onTap: () {
                  Navigator.of(context).pushReplacementNamed(
                    AppRoutes.HOME,
-                   )
+                   );
                },
              ),
              Divider(),
