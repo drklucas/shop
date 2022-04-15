@@ -16,8 +16,10 @@ class ProductGridItem extends StatelessWidget {
          child: GridTile(
            child: GestureDetector(
              child: Image.network(
+               
                product.imageUrl,
-               fit: BoxFit.cover
+               fit: BoxFit.cover,
+               height: MediaQuery.of(context).size.height / 22,
                ),
                onTap: () {
                  Navigator.of(context).pushNamed(
@@ -35,6 +37,7 @@ class ProductGridItem extends StatelessWidget {
                    },
                    icon:  Icon(product.isFavorite ? Icons.favorite : Icons.favorite_border),
                    color: Theme.of(context).accentColor,
+
                  ),
                ),
                title: Text(product.name,

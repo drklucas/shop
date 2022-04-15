@@ -23,7 +23,7 @@ class CartPage extends StatelessWidget {
                  child: Padding(
                    padding: const EdgeInsets.symmetric(
                      horizontal: 15,
-                     vertical: 25
+                     vertical: 20
                      ),
                    child: Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
