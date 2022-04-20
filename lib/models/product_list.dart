@@ -15,7 +15,7 @@ class ProductList with ChangeNotifier {
     return _items.length;
   }
 
-  void saveProduct(Map<String, Object> data) {
+   Future<void> saveProduct(Map<String, Object> data) async {
     bool hasId = data['id'] != null;
 
 
