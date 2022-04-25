@@ -10,8 +10,6 @@ class CartItem {
     required this.productId,
     required this.name,
     required this.quantity,
-    required this.price
+    required this.price,
   });
-
-  
 }

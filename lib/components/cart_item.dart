@@ -18,7 +18,11 @@ class CartItemWidget extends StatelessWidget {
       direction: DismissDirection.endToStart,
       background: Container(
         color: Theme.of(context).errorColor,
-        child: const Icon(Icons.delete, color: Colors.white, size: 40),
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 40,
+        ),
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         margin: const EdgeInsets.symmetric(
@@ -28,25 +32,26 @@ class CartItemWidget extends StatelessWidget {
       ),
       confirmDismiss: (_) {
         return showDialog<bool>(
-            context: context,
-            builder: (ctx) => AlertDialog(
-                  title: Text('Tem Certeza?'),
-                  content: Text('Gostaria de remover o item?'),
-                  actions: [
-                    TextButton(
-                      child: Text('Não'), 
-                      onPressed: () {
-                        Navigator.of(context).pop(false);
-                      }
-                      ),
-                    TextButton(
-                      child: Text('Sim'), 
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      }
-                      ),
-                  ],
-                ));
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Tem Certeza?'),
+            content: Text('Quer remover o item do carrinho?'),
+            actions: [
+              TextButton(
+                child: Text('Não'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+              TextButton(
+                child: Text('Sim'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
       },
       onDismissed: (_) {
         Provider.of<Cart>(
@@ -55,8 +60,13 @@ class CartItemWidget extends StatelessWidget {
         ).removeItem(cartItem.productId);
       },
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-        child: ListTile(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 4,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: ListTile(
             leading: CircleAvatar(
               child: Padding(
                 padding: const EdgeInsets.all(5),
@@ -67,7 +77,9 @@ class CartItemWidget extends StatelessWidget {
             ),
             title: Text(cartItem.name),
             subtitle: Text('Total: R\$ ${cartItem.price * cartItem.quantity}'),
-            trailing: Text('${cartItem.quantity}x')),
+            trailing: Text('${cartItem.quantity}x'),
+          ),
+        ),
       ),
     );
   }

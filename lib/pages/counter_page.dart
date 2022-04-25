@@ -1,28 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:shop/models/product.dart';
-import 'package:shop/provider/counter.dart';
+import 'package:shop/providers/counter.dart';
 
-class CounterPage extends StatelessWidget {
-  const CounterPage({ Key? key,  }) : super(key: key);
+class CounterPage extends StatefulWidget {
+  const CounterPage({
+    Key? key,
+  }) : super(key: key);
 
-   @override
-   Widget build(BuildContext context) {
-       return Scaffold(
-           appBar: AppBar(
-             title: Text('counter page'),
-             ),
-           body: Column(
-             children: [
-               Text('0'),
-               IconButton(
-                 onPressed: () {
-                   print(CounterProvider.of(context));
-                 },
-                 icon: Icon(Icons.add)
-               ),
-             ],
-           ),
-       );
-  }
+  @override
+  _CounterPageState createState() => _CounterPageState();
 }
 
+class _CounterPageState extends State<CounterPage> {
+  @override
+  Widget build(BuildContext context) {
+    final provider = CounterProvider.of(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Exemplo Contador'),
+      ),
+      body: Column(
+        children: [
+          Text(provider?.state.value.toString() ?? '0'),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                provider?.state.inc();
+              });
+              print(provider?.state.value);
+            },
+            icon: Icon(Icons.add),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                provider?.state.dec();
+              });
+              print(provider?.state.value);
+            },
+            icon: Icon(Icons.remove),
+          ),
+        ],
+      ),
+    );
+  }
+}
