@@ -1,13 +1,12 @@
-
-
 class AuthException implements Exception {
   static const Map<String, String> errors = {
-    'EMAIL_EXISTS': 'Email já em uso!',
-    'OPERATION_NOT_ALLOWED': 'Operação não permitida!',
-    'TOO_MANY_ATTEMPTS_TRY_LATER': 'Acesso bloqueado, tente novamente mais tarde!',
-    'EAIL_NOT_FOUND': 'Email não cadastrado!',
-    'INVALID_PASSWORD': 'Senha incorreta!',
-    'USER_DISABLED': 'Conta desabilitada!',
+    'EMAIL_EXISTS': 'E-mail already registered',
+    'OPERATION_NOT_ALLOWED': 'Operation not allowed!',
+    'TOO_MANY_ATTEMPTS_TRY_LATER':
+        'Access temporarily blocked. Try later',
+    'EMAIL_NOT_FOUND': 'E-mail not found.',
+    'INVALID_PASSWORD': 'Entered password does not match.',
+    'USER_DISABLED': 'User account has been disabled.',
   };
 
   final String key;
@@ -16,6 +15,6 @@ class AuthException implements Exception {
 
   @override
   String toString() {
-    return errors[key] ?? 'Houve um erro';
+    return errors[key] ?? 'An error occurred in the authentication process.';
   }
 }

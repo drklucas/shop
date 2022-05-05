@@ -16,9 +16,11 @@ class _AuthFormState extends State<AuthForm> {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
-
   AuthMode _authMode = AuthMode.Login;
-  Map<String, String> _authData = {'email': '', 'password': ''};
+  Map<String, String> _authData = {
+    'email': '',
+    'password': '',
+  };
 
   bool _isLogin() => _authMode == AuthMode.Login;
   bool _isSignup() => _authMode == AuthMode.Signup;
@@ -37,13 +39,14 @@ class _AuthFormState extends State<AuthForm> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(msg),
+        title: Text('An exception ocurred'),
+        content: Text(msg),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Fehcar')
+            child: Text('Close'),
           ),
-        ]
+        ],
       ),
     );
   }
@@ -51,31 +54,33 @@ class _AuthFormState extends State<AuthForm> {
   Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
-    if(!isValid) {
+    if (!isValid) {
       return;
     }
 
     setState(() => _isLoading = true);
 
-    _formKey.currentState?.save(); 
+    _formKey.currentState?.save();
     Auth auth = Provider.of(context, listen: false);
-    
+
     try {
-      if(_isLogin()) {
-      await auth.login(
-        _authData['email']!, 
-        _authData['password']!,
+      if (_isLogin()) {
+        // Login
+        await auth.login(
+          _authData['email']!,
+          _authData['password']!,
         );
-    } else  {
-      await auth.signup(
-        _authData['email']!, 
-        _authData['password']!,
+      } else {
+        // Registrar
+        await auth.signup(
+          _authData['email']!,
+          _authData['password']!,
         );
-    }
-    } on AuthException catch(error) {
+      }
+    } on AuthException catch (error) {
       _showErrorDialog(error.toString());
-    } catch(error) {
-      _showErrorDialog('Erro inesperado!');
+    } catch (error) {
+      _showErrorDialog('An unexpected error occurred!');
     }
 
     setState(() => _isLoading = false);
@@ -85,10 +90,10 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Card(
+      elevation: 8,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      elevation: 8,
       child: Container(
         padding: const EdgeInsets.all(16),
         height: _isLogin() ? 310 : 400,
@@ -98,32 +103,34 @@ class _AuthFormState extends State<AuthForm> {
           child: Column(
             children: [
               TextFormField(
-                  decoration: InputDecoration(labelText: 'E-mail'),
-                  keyboardType: TextInputType.emailAddress,
-                  onSaved: (email) => _authData['email'] = email ?? '',
-                  validator: (_email) {
-                    final email = _email ?? '';
-                    if (email.trim().isEmpty || !email.contains('@')) {
-                      return 'Informe um email válido!';
-                    }
-                    return null;
-                  }),
+                decoration: InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+                onSaved: (email) => _authData['email'] = email ?? '',
+                validator: (_email) {
+                  final email = _email ?? '';
+                  if (email.trim().isEmpty || !email.contains('@')) {
+                    return 'Provide a valid email.';
+                  }
+                  return null;
+                },
+              ),
               TextFormField(
-                  decoration: InputDecoration(labelText: 'Senha'),
-                  keyboardType: TextInputType.emailAddress,
-                  obscureText: true,
-                  controller: _passwordController,
-                  onSaved: (password) => _authData['password'] = password ?? '',
-                  validator: (_password) {
-                    final password = _password ?? '';
-                    if (password.isEmpty || password.length < 5) {
-                      return 'A senha deve conter pelo menos 5 dígitos!';
-                    }
-                    return null;
-                  }),
+                decoration: InputDecoration(labelText: 'Password'),
+                keyboardType: TextInputType.emailAddress,
+                obscureText: true,
+                controller: _passwordController,
+                onSaved: (password) => _authData['password'] = password ?? '',
+                validator: (_password) {
+                  final password = _password ?? '';
+                  if (password.isEmpty || password.length < 5) {
+                    return 'Provide a valid password';
+                  }
+                  return null;
+                },
+              ),
               if (_isSignup())
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                  decoration: InputDecoration(labelText: 'Confirm password'),
                   keyboardType: TextInputType.emailAddress,
                   obscureText: true,
                   validator: _isLogin()
@@ -131,7 +138,7 @@ class _AuthFormState extends State<AuthForm> {
                       : (_password) {
                           final password = _password ?? '';
                           if (password != _passwordController.text) {
-                            return 'Senhas não conferem';
+                            return 'Entered passwords do not match.';
                           }
                           return null;
                         },
@@ -143,20 +150,25 @@ class _AuthFormState extends State<AuthForm> {
                 ElevatedButton(
                   onPressed: _submit,
                   child: Text(
-                      _authMode == AuthMode.Login ? 'ENTRAR' : 'CADASTRAR'),
+                    _authMode == AuthMode.Login ? 'LOGIN' : 'SIGNUP',
+                  ),
                   style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 8)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 8,
+                    ),
+                  ),
                 ),
               Spacer(),
               TextButton(
-                  onPressed: _switchAuthMode,
-                  child: Text(
-                    _isLogin() ? 'REGISTRE-SE' : 'ENTRAR',
-                  )),
+                onPressed: _switchAuthMode,
+                child: Text(
+                  _isLogin() ? 'SIGNUP' : 'SIGNIN',
+                ),
+              ),
             ],
           ),
         ),
