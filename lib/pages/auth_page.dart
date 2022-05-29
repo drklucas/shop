@@ -24,19 +24,6 @@ class AuthPage extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            // child: Container(
-            //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 125),
-            //   decoration: BoxDecoration(
-            //       gradient:LinearGradient(
-            //         begin: Alignment.topRight, 
-            //         end: Alignment.bottomLeft,
-            //         colors: [
-            //           Colors.grey.shade100, 
-            //           Colors.blue.shade100, 
-            //           Colors.cyan.shade100,
-            //         ]
-            //       ),
-            //       borderRadius: BorderRadius.circular(15)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

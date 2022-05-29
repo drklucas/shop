@@ -17,8 +17,8 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final msg = ScaffoldMessenger.of(context);
     return SlideFadeTransition(
-      delayStart: Duration(milliseconds: 300),
-      animationDuration: Duration(milliseconds: 800),
+      delayStart: Duration(milliseconds: 450),
+      animationDuration: Duration(milliseconds: 1600),
       curve: Curves.fastLinearToSlowEaseIn,
       child: ListTile(
         leading: CircleAvatar(
