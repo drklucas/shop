@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shop/components/slide_fade_transition.dart';
 import 'package:shop/models/order.dart';
 
 class OrderWidget extends StatefulWidget {
@@ -36,36 +37,43 @@ class _OrderWidgetState extends State<OrderWidget> {
             ),
           ),
           if (_expanded)
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 4,
-              ),
-              height: (widget.order.products.length * 24.0) + 10,
-              child: ListView(
-                children: widget.order.products.map(
-                  (product) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          product.name,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+            SlideFadeTransition(
+              curve: Curves.easeInToLinear, 
+              delayStart: Duration(milliseconds: 0),
+              animationDuration: Duration(milliseconds: 300),
+              offset: -1.5, 
+              direction: Direction.vertical,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 4,
+                ),
+                height: (widget.order.products.length * 24.0) + 10,
+                child: ListView(
+                  children: widget.order.products.map(
+                    (product) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            product.name,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '${product.quantity}x R\$ ${product.price}',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey,
-                          ),
-                        )
-                      ],
-                    );
-                  },
-                ).toList(),
+                          Text(
+                            '${product.quantity}x R\$ ${product.price}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  ).toList(),
+                ),
               ),
             )
         ],

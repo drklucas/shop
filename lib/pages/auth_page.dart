@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shop/components/auth_form.dart';
+import 'package:shop/components/card_auth_widget.dart';
+import 'package:shop/components/slide_fade_transition.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -14,10 +16,7 @@ class AuthPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.cyan,
-                  Colors.orange
-                ],
+                colors: [Colors.cyan.shade50, Colors.cyan.shade100],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -25,58 +24,34 @@ class AuthPage extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 20,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 70,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.green.shade800,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        color: Colors.black26,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    'Sports Store',
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontFamily: 'Anton',
-                      color: Theme.of(context).accentTextTheme.headline6?.color,
-                    ),
-                  ),
-                ),
-                AuthForm(),
-              ],
+            // child: Container(
+            //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 125),
+            //   decoration: BoxDecoration(
+            //       gradient:LinearGradient(
+            //         begin: Alignment.topRight, 
+            //         end: Alignment.bottomLeft,
+            //         colors: [
+            //           Colors.grey.shade100, 
+            //           Colors.blue.shade100, 
+            //           Colors.cyan.shade100,
+            //         ]
+            //       ),
+            //       borderRadius: BorderRadius.circular(15)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CardAuthWidget(),
+                  AuthForm(),
+                ],
+              ),
             ),
-          ),
+          //),
         ],
       ),
     );
   }
 }
 
-// Exemplo usado para explicar o cascade operator
-// void main() {
-//   List<int> a = [1, 2, 3];
-//   a.add(4);
-//   a.add(5);
-//   a.add(6);
-  
-//   // cascade operator!
-//   a..add(7)..add(8)..add(9);
-  
-//   print(a);
 // }
 

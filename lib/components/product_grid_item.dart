@@ -28,7 +28,7 @@ class ProductGridItem extends StatelessWidget {
           },
         ),
         footer: GridTileBar(
-          backgroundColor: Colors.black87,
+          backgroundColor: Color(0x96032E35),
           leading: Consumer<Product>(
             builder: (ctx, product, _) => IconButton(
               onPressed: () {
